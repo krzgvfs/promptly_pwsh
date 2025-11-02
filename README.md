@@ -1,4 +1,4 @@
-# Promptly
+# PSPromptly
 
 > PowerShell framework for creating command-line automations.
 
@@ -11,7 +11,7 @@
 
 ## 📖 Overview
 
-**Promptly** is a framework that assists in creating **interactive command-line applications**.
+**PSPromptly** is a framework that assists in creating **interactive command-line applications**.
 
 It was designed to be **modular, extensible, and user-friendly**, allowing independent commands used in everyday applications to compose a complete application with minimal code.
 
@@ -35,7 +35,7 @@ Here is a basic example of how to create and display an interactive menu.
 # Usage.ps1
 
 # 1. Import the module
-Import-Module Promptly
+Import-Module PSPromptly
 
 # 2. Define the actions (script blocks) for your menu items
 $action1 = { Write-Host "You chose the first option! Running a script..." }

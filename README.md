@@ -35,7 +35,7 @@ Here is a basic example of how to create and display an interactive menu.
 # Usage.ps1
 
 # 1. Import the module
-Import-Module Promptly
+Import-Module -Name "PSPromptly" -Force
 
 # 2. Define the actions (script blocks) for your menu items
 $action1 = { Write-Host "You chose the first option! Running a script..." }
@@ -45,7 +45,6 @@ $action2 = { Start-Process "https://github.com/krzgvfs/promptly_pwsh" }
 $menuItems = @(
     [MenuItem]::new("Run a local script", $action1)
     [MenuItem]::new("Open project page", $action2)
-    [MenuItem]::new("Do nothing (exit)", { return })
 )
 
 # 4. Display the menu to the user

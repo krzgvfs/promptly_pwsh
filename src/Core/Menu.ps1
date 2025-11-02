@@ -8,8 +8,10 @@ function Show-Menu {
     $itemLabels = $Items.Label
     $selectedLabel = Select-Option -Items $itemLabels -Title $Title
 
-    $selectedItem = $Items.Where({ $_.Label -eq $selectedLabel }, 'First')
-    $selectedItem.Invoke()
+    if ($selectedLabel) {
+        $selectedItem = $Items.Where({ $_.Label -eq $selectedLabel }, 'First')
+        $selectedItem.Invoke()
+    }
 }
 
 function Select-Option {
@@ -19,10 +21,15 @@ function Select-Option {
         [string]$Title
     )
 
+    if (-not $Items) {
+        Write-Warning "Select-Option was called with no items."
+        return $null
+    }
+
     $selected = 0
     while ($true) {
         Render-Menu -Items $Items -Selected $selected -Title $Title
-        $key = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown").VirtualKeyCode
+        $key = Get-KeyInput
 
         switch ($key) {
             38 {
@@ -37,6 +44,12 @@ function Select-Option {
             }
             13 {
                 return $Items[$selected]
+            }
+            39 {
+                return $Items[$selected]
+            }
+            27 {
+                return $null
             }
         }
     }

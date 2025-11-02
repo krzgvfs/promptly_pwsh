@@ -1,6 +1,6 @@
 @{
     RootModule        = 'PSPromptly.psm1'
-    ModuleVersion     = '0.1.0'
+    ModuleVersion     = '0.1.1'
     GUID              = '8064a379-f3ee-4f8f-8f3f-831faae663df'
     Author            = 'Marcos Santos'
     CompanyName       = 'Marcos Santos'

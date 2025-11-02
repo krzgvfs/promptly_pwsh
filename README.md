@@ -22,7 +22,7 @@ It was designed to be **modular, extensible, and user-friendly**, allowing indep
 ### PowerShell Gallery (Recommended)
 
 ```powershell
-Install-Module -Name Promptly -Scope CurrentUser -Force
+Install-Module -Name PSPromptly -Scope CurrentUser -Force
 ```
 
 ---

@@ -5,8 +5,8 @@
 ![PowerShell](https://img.shields.io/badge/PowerShell-5.1+-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey)
-![Status](https://img.shields.io/badge/Status-In%20development-yellow)
-![Version](https://img.shields.io/badge/Version-0.1.2-orange)
+![Status](https://img.shields.io/badge/Status-Published-green)
+![Version](https://img.shields.io/badge/Version-0.1.3-orange)
 
 ---
 
@@ -30,18 +30,18 @@ Designed to be **modular, extensible, and developer-friendly**, PSPromptly lets 
 
 ## 📦 Installation
 
-### From Source (Current)
+### PowerShell Gallery (Recommended)
+
+```powershell
+Install-Module -Name PSPromptly -Scope CurrentUser -Force
+```
+
+### From Source
 
 ```powershell
 git clone https://github.com/krzgvfs/promptly_pwsh.git
 cd promptly_pwsh
 Import-Module ./PSPromptly.psd1 -Force
-```
-
-### PowerShell Gallery (Coming Soon)
-
-```powershell
-Install-Module -Name PSPromptly -Scope CurrentUser -Force
 ```
 
 ---

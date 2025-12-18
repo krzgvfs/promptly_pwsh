@@ -33,7 +33,7 @@ Designed to be **modular, extensible, and developer-friendly**, PSPromptly lets 
 ### PowerShell Gallery (Recommended)
 
 ```powershell
-Install-Module -Name PSPromptly -Scope CurrentUser -Force
+Install-Module -Name PSPromptly
 ```
 
 ### From Source
@@ -52,12 +52,12 @@ Here's a complete example to get you started:
 
 ```powershell
 # Import the module
-Import-Module -Name "PSPromptly" -Force
+Import-Module -Name PSPromptly
 
 # Define actions for your menu items
 $action1 = { Write-Host "Running first action..." }
 $action2 = { Get-Process | Select-Object -First 5 }
-$action3 = { Start-Process "https://github.com" }
+$action3 = { Start-Process "https://github.com/krzgvfs" }
 
 # Create menu items
 $menuItems = @(

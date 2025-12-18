@@ -1,13 +1,12 @@
 @{
     RootModule        = 'PSPromptly.psm1'
-    ModuleVersion     = '0.1.1'
+    ModuleVersion     = '0.1.2'
     GUID              = '8064a379-f3ee-4f8f-8f3f-831faae663df'
     Author            = 'Marcos Santos'
     CompanyName       = 'Marcos Santos'
     Description       = 'Library for creating navigation menus for command-line applications'
-    FunctionsToExport = @('Show-Menu', 'Select-Option')
+    FunctionsToExport = @('Show-Menu', 'Select-Option', 'New-MenuItem', 'New-ExitMenuItem', 'New-MenuTheme')
     RequiredModules   = @()
-    ScriptsToProcess  = @('src/Core/MenuItem.ps1')
     FileList          = @('PSPromptly.psm1', 'src/Core/Menu.ps1', 'src/UI/Render.ps1', 'src/Core/MenuItem.ps1')
     PrivateData       = @{
         PSData = @{

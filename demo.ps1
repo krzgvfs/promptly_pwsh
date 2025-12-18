@@ -1,18 +1,29 @@
-Import-Module -Name "PSPromptly" -Force
+Import-Module -Name "./PSPromptly.psd1" -Force
 
-$action1 = { Write-Host "Action 1" }
-$action2 = { Write-Host "Action 2" }
-$action3 = { Write-Host "Action 3" }
-$action4 = { Write-Host "Action 4" }
-$action5 = { Write-Host "Action 5" }
+$action1 = { Test-Connection google.com }
+$action2 = { Get-ChildItem Env: }
+$action3 = { Get-Process -Id $pid }
 
 $menuItems = @(
-    [MenuItem]::new("Item 01", $action1)
-    [MenuItem]::new("Item 02", $action2)
-    [MenuItem]::new("Item 03", $action3)
-    [MenuItem]::new("Item 04", $action4)
-    [MenuItem]::new("Item 05", $action5)
-    [MenuItem]::new("Sair", { return } )
+    New-MenuItem -Label "Testar google.com" -Action $action1
+    New-MenuItem -Label "Variáveis de ambiente" -Action $action2
+    New-MenuItem -Label "Processo do PowerShell" -Action $action3
+    New-ExitMenuItem -ForegroundColor Red 
 )
 
-Show-Menu -Items $menuItems -Title "Menu principal"
+$asciiArt = @"
+• ▌ ▄ ·.  ▄▄▄· ▄▄▄   ▄▄·       .▄▄ ·     .▄▄ ·  ▄▄▄·  ▐ ▄ ▄▄▄▄▄      .▄▄ · 
+·██ ▐███▪▐█ ▀█ ▀▄ █·▐█ ▌▪▪     ▐█ ▀.     ▐█ ▀. ▐█ ▀█ •█▌▐█•██  ▪     ▐█ ▀. 
+▐█ ▌▐▌▐█·▄█▀▀█ ▐▀▀▄ ██ ▄▄ ▄█▀▄ ▄▀▀▀█▄    ▄▀▀▀█▄▄█▀▀█ ▐█▐▐▌ ▐█.▪ ▄█▀▄ ▄▀▀▀█▄
+██ ██▌▐█▌▐█ ▪▐▌▐█•█▌▐███▌▐█▌.▐▌▐█▄▪▐█    ▐█▄▪▐█▐█ ▪▐▌██▐█▌ ▐█▌·▐█▌.▐▌▐█▄▪▐█
+▀▀  █▪▀▀▀ ▀  ▀ .▀  ▀·▀▀▀  ▀█▄▀▪ ▀▀▀▀      ▀▀▀▀  ▀  ▀ ▀▀ █▪ ▀▀▀  ▀█▄▀▪ ▀▀▀▀ 
+"@
+
+$theme = New-MenuTheme `
+    -AsciiArtColor Magenta `
+    -TitleColor White `
+    -MenuTextColor Gray `
+    -MenuBackgroundColor Black `
+    -SelectionBackgroundColor Yellow
+
+Show-Menu -Items $menuItems -Title "/ Início" -AsciiArt $asciiArt -Theme $theme

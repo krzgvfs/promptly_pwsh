@@ -1,24 +1,52 @@
 function Show-Menu {
     [CmdletBinding()]
     param(
-        [MenuItem[]]$Items,
-        [string]$Title
+        [object[]]$Items,
+        [string]$Title,
+        [string]$AsciiArt,
+        [MenuTheme]$Theme
     )
 
-    $itemLabels = $Items.Label
-    $selectedLabel = Select-Option -Items $itemLabels -Title $Title
+    if (-not $Theme) {
+        $Theme = New-MenuTheme
+    }
 
-    if ($selectedLabel) {
+    foreach ($item in $Items) {
+        if ($item.GetType().Name -ne 'MenuItem') {
+            throw "Invalid item passed to Show-Menu. Please create items using the New-MenuItem function."
+        }
+    }
+
+    while ($true) {
+        $selectedLabel = Select-Option -Items $Items -Title $Title -AsciiArt $AsciiArt -Theme $Theme
+
+        if (-not $selectedLabel) {
+            Clear-Host
+            break
+        }
+
         $selectedItem = $Items.Where({ $_.Label -eq $selectedLabel }, 'First')
+
+        if ($selectedItem.IsExitItem) {
+            Clear-Host
+            break
+        }
+
+        Clear-Host
         $selectedItem.Invoke()
+
+        Write-Host "`nPress Enter to continue..."
+        Read-Host | Out-Null
     }
 }
 
 function Select-Option {
     [CmdletBinding()]
     param (
-        [string[]]$Items,
-        [string]$Title
+        [object[]]$Items,
+        [string]$Title,
+        [string]$AsciiArt,
+        [MenuTheme]$Theme
     )
 
     if (-not $Items) {
@@ -26,31 +54,44 @@ function Select-Option {
         return $null
     }
 
-    $selected = 0
-    while ($true) {
-        Render-Menu -Items $Items -Selected $selected -Title $Title
-        $key = Get-KeyInput
+    if (-not $Theme) {
+        $Theme = New-MenuTheme
+    }
 
-        switch ($key) {
-            38 {
-                if ($selected -gt 0) {
-                    $selected--
+    $selected = 0
+    $previousSelected = -1
+
+    try {
+        [System.Console]::CursorVisible = $false
+        while ($true) {
+            Write-Menu -Items $Items -Selected $selected -PreviousSelected $previousSelected -Title $Title -AsciiArt $AsciiArt -Theme $Theme
+            $previousSelected = $selected
+            $key = Get-KeyInput
+
+            switch ($key) {
+                38 {
+                    if ($selected -gt 0) {
+                        $selected--
+                    }
                 }
-            }
-            40 {
-                if ($selected -lt $Items.Length - 1) {
-                    $selected++
+                40 {
+                    if ($selected -lt $Items.Length - 1) {
+                        $selected++
+                    }
                 }
-            }
-            13 {
-                return $Items[$selected]
-            }
-            39 {
-                return $Items[$selected]
-            }
-            27 {
-                return $null
+                13 {
+                    return $Items[$selected].Label
+                }
+                39 {
+                    return $Items[$selected].Label
+                }
+                27 {
+                    return $null
+                }
             }
         }
+    }
+    finally {
+        [System.Console]::CursorVisible = $true
     }
 }
